@@ -138,74 +138,74 @@ EXAMPLES = """
 # Configure a health check
 - local_action:
     module: ec2_elb_lb
-    name: "test-please-delete"
-    state: present
-    zones:
-      - us-east-1d
-    listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
-    health_check:
-        ping_protocol: http # options are http, https, ssl, tcp
-        ping_port: 80
-        ping_path: "/index.html" # not required for tcp or ssl
-        response_timeout: 5 # seconds
-        interval: 30 # seconds
-        unhealthy_threshold: 2
-        healthy_threshold: 10
+      name: "test-please-delete"
+      state: present
+      zones:
+        - us-east-1d
+      listeners:
+        - protocol: http
+          load_balancer_port: 80
+          instance_port: 80
+      health_check:
+          ping_protocol: http # options are http, https, ssl, tcp
+          ping_port: 80
+          ping_path: "/index.html" # not required for tcp or ssl
+          response_timeout: 5 # seconds
+          interval: 30 # seconds
+          unhealthy_threshold: 2
+          healthy_threshold: 10
 
 # Ensure ELB is gone
 - local_action:
     module: ec2_elb_lb
-    name: "test-please-delete"
-    state: absent
+      name: "test-please-delete"
+      state: absent
 
 # Normally, this module will purge any listeners that exist on the ELB
 # but aren't specified in the listeners parameter. If purge_listeners is
 # false it leaves them alone
 - local_action:
     module: ec2_elb_lb
-    name: "test-please-delete"
-    state: present
-    zones:
-      - us-east-1a
-      - us-east-1d
-    listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
-    purge_listeners: no
+      name: "test-please-delete"
+      state: present
+      zones:
+        - us-east-1a
+        - us-east-1d
+      listeners:
+        - protocol: http
+          load_balancer_port: 80
+          instance_port: 80
+      purge_listeners: no
 
 # Normally, this module will leave availability zones that are enabled
 # on the ELB alone. If purge_zones is true, then any extreneous zones
 # will be removed
 - local_action:
     module: ec2_elb_lb
-    name: "test-please-delete"
-    state: present
-    zones:
-      - us-east-1a
-      - us-east-1d
-    listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
-    purge_zones: yes
+      name: "test-please-delete"
+      state: present
+      zones:
+        - us-east-1a
+        - us-east-1d
+      listeners:
+        - protocol: http
+          load_balancer_port: 80
+          instance_port: 80
+      purge_zones: yes
 
 # Creates a ELB and assigns a list of subnets to it. 
 - local_action:
     module: ec2_elb_lb
-    state: present
-    name: 'New ELB'
-    security_group_ids: 'sg-123456, sg-67890'
-    region: us-west-2
-    subnets: 'subnet-123456, subnet-67890'
-    purge_subnets: yes
-    listeners:
-      - protocol: http
-        load_balancer_port: 80
-        instance_port: 80
+      state: present
+      name: 'New ELB'
+      security_group_ids: 'sg-123456, sg-67890'
+      region: us-west-2
+      subnets: 'subnet-123456, subnet-67890'
+      purge_subnets: yes
+      listeners:
+        - protocol: http
+          load_balancer_port: 80
+          instance_port: 80
 """
 
 import sys
